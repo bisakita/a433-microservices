@@ -1,2 +1,9 @@
 # Ignore node_modules directory
 src/node_modules
+./node_modules
+
+Dockerfile
+
+.dockerignore
+
+docker-compose.yml

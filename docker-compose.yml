@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  # Membuat service bernama item-db mongodb
+  item-db:
+    # menggunakan mongdb versi 3 dari repository
+    image: mongo:3
+    # task untuk restart container bila terjadi error atau berhenti sampai container dihentikan 
+    restart: unless-stopped
+    # Volume app-db untuk menympan data mongodb
+    volumes:
+      - app-db:/data/db
+
+  # Membuat service bernama item-app nodejs
+  item-app:
+    # Menunggu service item-db start
+    depends_on:
+      item-db:
+        condition: service_started
+    # Ubah supaya ambil dari registry
+    # build: .
+    # Menggunakan image dari container registry github
+    image: ghcr.io/bisakita/item-app:v1
+    # task untuk restart container bila terjadi error atau berhenti sampai container dihentikan 
+    restart: unless-stopped
+    # Expose port 8080 service ke port 80 local
+    ports:
+      - "80:8080"
+# Deklarasi volume pada service mongodb
+volumes:
+  app-db:
