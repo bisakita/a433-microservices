@@ -24,3 +24,4 @@ Karsajobs read configuration from environment variable
   - `DELETE` delete job
 - /health
   - `GET` check app health status
+  
